@@ -20,7 +20,11 @@ Build a modular, reproducible and production-oriented local AI platform.
 
 Current Milestone:
 
-🟡 Milestone 1 — Foundation
+🟡 Milestone 2 — Docker Platform
+
+Previous Milestone:
+
+✅ Milestone 1 — Foundation
 
 ---
 
@@ -49,7 +53,7 @@ Establish the technical and architectural foundations of the laboratory.
 
 Status:
 
-🟡 In Progress
+✅ Completed
 
 ---
 
@@ -74,7 +78,7 @@ Containers can be deployed successfully.
 
 Status:
 
-⬜ Planned
+🟡 In Progress
 
 ---
 
