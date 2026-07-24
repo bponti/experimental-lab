@@ -28,13 +28,13 @@ This audit validates:
 | 0.1 | Operating System | 🟢 PASS |
 | 0.2 | Hardware | 🟢 PASS |
 | 0.3 | Firmware / BIOS | 🟢 PASS |
-| 0.4 | CPU | ⬜ Pending |
-| 0.5 | GPU | ⬜ Pending |
-| 0.6 | Docker Engine | ⬜ Pending |
-| 0.7 | Docker Runtime | ⬜ Pending |
-| 0.8 | Git | ⬜ Pending |
-| 0.9 | Development Tools | ⬜ Pending |
-| 0.10 | Networking | ⬜ Pending |
+| 0.4 | CPU | 🟢 PASS |
+| 0.5 | GPU | 🟢 PASS |
+| 0.6 | Docker Engine | 🟢 PASS |
+| 0.7 | Docker Runtime | 🟢 PASS |
+| 0.8 | Git | 🟢 PASS |
+| 0.9 | Development Tools | 🟢 PASS |
+| 0.10 | Networking | 🟢 PASS |
 
 ## Validation 0.1 – Operating System
 
@@ -76,7 +76,7 @@ hostnamectl
 
 The host is running Ubuntu 24.04.4 LTS, which is the target operating system for the AI Local Lab.
 
-The system uses a modern Linux 6.17 kernel on the x86_64 architecture, providing compatibility with current container technologies and development tools.
+The system uses the Linux 7.0.0-28-generic kernel on the x86_64 architecture, providing compatibility with current container technologies and development tools.
 
 The system is configured to boot in UEFI mode, which aligns with current hardware standards and simplifies firmware and bootloader management.
 
@@ -332,11 +332,11 @@ sudo lshw -C display
 
 The system is correctly configured for GPU-accelerated workloads using the proprietary NVIDIA driver.
 
-The installed driver (595.71.05) provides CUDA 13.2 support and fully recognizes the NVIDIA GeForce RTX 4070 SUPER based on the Ada Lovelace architecture. The GPU is operating normally and is currently driving the graphical desktop environment. :contentReference[oaicite:1]{index=1}
+The installed driver (595.71.05) provides CUDA 13.2 support and fully recognizes the NVIDIA GeForce RTX 4070 SUPER based on the Ada Lovelace architecture. The GPU is operating normally and is currently driving the graphical desktop environment.
 
-The NVIDIA kernel modules are correctly loaded, confirming proper integration between the Linux kernel and the graphics driver. The system is therefore ready for CUDA-based applications and the NVIDIA Container Toolkit used by Docker. :contentReference[oaicite:2]{index=2}
+The NVIDIA kernel modules are correctly loaded, confirming proper integration between the Linux kernel and the graphics driver. The system is therefore ready for CUDA-based applications and the NVIDIA Container Toolkit used by Docker.
 
-The PCI Express link is currently operating at Gen2 x16 while the GPU is idle, although both the graphics card and motherboard support higher link speeds. This is expected behaviour resulting from dynamic power management and does not indicate a hardware or configuration issue. Under computational load, the PCIe link is expected to negotiate to its maximum supported generation. :contentReference[oaicite:3]{index=3}
+The PCI Express link is currently operating at Gen2 x16 while the GPU is idle, although both the graphics card and motherboard support higher link speeds. This is expected behaviour resulting from dynamic power management and does not indicate a hardware or configuration issue. Under computational load, the PCIe link is expected to negotiate to its maximum supported generation.
 
 No GPU-related limitations were identified that would prevent the deployment of local AI inference, CUDA applications or GPU-enabled Docker containers.
 
@@ -529,9 +529,9 @@ git log --oneline --decorate -5
 | Git Version | 2.43.0 |
 | User Name | bponti |
 | User Email | bhzamorano@gmail.com |
-| Current Branch | master |
+| Current Branch | main |
 | Repository Status | Operational |
-| Remote Repository | None configured |
+| Remote Repository | origin (GitHub) |
 | Commit History | Available |
 
 ### Technical Analysis
@@ -540,11 +540,11 @@ Git 2.43.0 is correctly installed and operational on the host system.
 
 The global Git configuration includes a valid user identity and GitHub CLI credential helper integration, enabling authenticated operations with GitHub repositories.
 
-The current repository is initialized and functioning correctly. The default branch is `master`, and the repository contains an initial commit establishing the project structure.
+The repository is initialized, version-controlled and connected to a remote GitHub repository. The default branch is `main`, and the project history has been successfully published as the baseline for the AI Local Lab.
 
-The working tree contains uncommitted modifications and untracked files, which is expected during the documentation and setup phase of the project.
+The local and remote repositories are synchronized, providing a reliable foundation for version control, collaboration and future project milestones.
 
-No remote repository has been configured yet. This does not affect local development and version control but should be configured before publishing or collaborating on the project.
+No Git-related limitations were identified during this validation.
 
 ### Result
 
