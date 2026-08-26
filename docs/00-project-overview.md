@@ -2,19 +2,23 @@
 
 ## Purpose
 
-AI Local Lab is a modular and reproducible local AI platform designed to study, deploy and operate modern AI services using infrastructure engineering best practices.
+AI Local Lab is a local AI agent laboratory designed to build, test and evolve autonomous and semi-autonomous agents running on local infrastructure.
 
-Rather than focusing on a single application, the laboratory is intended to become a complete ecosystem where AI agents, local language models, databases and supporting services can coexist in an isolated and maintainable environment.
+The initial objective of the project is to deliver a Minimum Viable Product (MVP) that allows the user to interact remotely with an AI agent running on a local Ubuntu system.
 
-The project emphasizes reproducibility, documentation and incremental architectural evolution.
+The agent must be able to receive instructions through a messaging interface and perform authorized tasks on the local computer.
+
+The project is designed as a foundation for future development of specialized local agents for software development, infrastructure, cloud operations, automation and technical analysis.
 
 ---
 
 # Vision
 
-Build a production-oriented local AI laboratory capable of hosting multiple independent AI services while maintaining a clean, modular and well-documented architecture.
+Build a modular, reproducible and production-oriented local AI agent platform.
 
-The laboratory should allow experimentation without compromising the stability of the host operating system.
+The platform will initially focus on a single local agent capable of performing practical tasks on an Ubuntu system.
+
+Future milestones may expand the platform into a system of specialized agents capable of working with software projects, infrastructure and cloud environments.
 
 ---
 
@@ -27,6 +31,31 @@ Every architectural decision must be documented and justified.
 Every deployment should be reproducible.
 
 ---
+
+# MVP Definition
+
+The MVP is a remotely accessible AI agent running on the user's local Ubuntu computer.
+
+The user communicates with the agent through a messaging platform.
+
+The initial preferred communication channel is Telegram.
+
+The agent receives instructions remotely, performs authorized operations on the local computer and returns the results through the messaging channel.
+
+The core MVP interaction model is:
+
+User
+  │
+  │ Remote message
+  ▼
+Messaging Platform
+  │
+  ▼
+Local AI Agent
+  │
+  ├── Local Workspace Operations
+  │
+  └── Local Ubuntu Operations
 
 # Scope
 
