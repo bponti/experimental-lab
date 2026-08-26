@@ -227,7 +227,7 @@ This project is intended for:
 
 Current Phase:
 
-Phase 0 — Environment Audit
+Phase 2 — Docker Platform
 
 Status:
 
