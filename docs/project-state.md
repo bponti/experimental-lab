@@ -1,19 +1,22 @@
-# AI Local Lab — Project State
+# Experimental Lab — Project State
 
 ## Project Information
 
 Project:
-AI Local Lab
+
+Experimental Lab
 
 Status:
+
 🟢 Active
 
 Last Updated:
-2026-07-24
+
+2026-08-26
 
 ---
 
-## Current Progress
+# Current Progress
 
 Last Completed Milestone:
 
@@ -21,15 +24,15 @@ Last Completed Milestone:
 
 Current Milestone:
 
-🟡 Milestone 2 — Docker Platform
+🟡 Milestone 2 — MVP Architecture and Security Boundary
 
 Status:
 
-In progress
+In Progress
 
 ---
 
-## Last Completed
+# Last Completed
 
 Milestone:
 
@@ -45,63 +48,114 @@ Completed
 
 Deliverables Completed:
 
-- Git repository initialized
-- Documentation standards established
-- README completed
-- Project Overview completed
-- ADR-0001 approved
-- ADR-0002 approved
-- Phase 0 Environment Audit completed
-- Documentation reviewed and approved
-- Repository published to GitHub
-- Milestone 1 exit criteria satisfied
+- Git repository initialized.
+- Documentation standards established.
+- README completed.
+- Project Overview established.
+- ADR-0001 approved.
+- ADR-0002 approved.
+- Phase 0 Environment Audit completed.
+- Documentation reviewed.
+- Repository published.
+- Milestone 1 exit criteria satisfied.
 
-Last Commit:
-
-docs(phase-0): finalize environment audit
+Historical commit information must be revalidated against the current repository when needed.
 
 ---
 
-## Current Objective
+# Current Objective
 
-Begin Milestone 2 — Docker Platform.
+Define and validate the minimum architecture required to implement the remotely accessible local AI agent MVP.
 
-Design and implement the reusable Docker platform that will become the technical foundation of the AI Local Lab.
+Before Docker infrastructure implementation begins, the project must identify the actual components, communication paths, execution boundaries and authorization requirements that the MVP requires.
 
----
-
-## Current Tasks
-
-- [ ] Review Milestone 2 objectives
-- [ ] Design the base project directory structure
-- [ ] Design the Docker Compose architecture
-- [ ] Define Docker networking
-- [ ] Define persistent volumes
-- [ ] Define environment variable strategy
-- [ ] Prepare the initial infrastructure implementation plan
+Infrastructure must follow requirements rather than assumptions about future services.
 
 ---
 
-## Next Deliverable
+# Current Tasks
 
-Milestone 2 — Docker Platform
-
-Initial Docker Platform Foundation
+- [ ] Confirm the current MVP interaction flow.
+- [ ] Map the minimum required MVP components.
+- [ ] Evaluate and define the first AI agent runtime requirements.
+- [ ] Determine how the messaging platform communicates with the local agent.
+- [ ] Define the authorized workspace boundary.
+- [ ] Define workspace read and write permissions.
+- [ ] Define the local command execution model.
+- [ ] Define the distinction between normal and privileged operations.
+- [ ] Define the privileged-operation authorization policy.
+- [ ] Define the Docker socket access policy.
+- [ ] Define host mount requirements.
+- [ ] Define secret-handling requirements.
+- [ ] Define persistent-data requirements.
+- [ ] Define actual networking and communication requirements.
+- [ ] Define the minimum service boundaries.
+- [ ] Review existing ADRs for alignment with the updated architecture.
+- [ ] Create or update ADRs for new architectural decisions where required.
+- [ ] Prepare the minimum Docker implementation plan.
 
 ---
 
-## Active ADRs
+# Immediate Next Deliverable
 
-- ADR-0001
-- ADR-0002
+Milestone 2 — MVP Architecture and Security Boundary
+
+Minimum Architecture Definition
+
+Expected outcome:
+
+A documented answer to what the MVP actually requires before Docker services, networks, volumes, ports or privileged access are implemented.
 
 ---
 
-## Repository
+# Current Architectural Principle
+
+The project follows this execution order:
+
+```text
+Define MVP
+    ↓
+Identify required components
+    ↓
+Define communication paths
+    ↓
+Define security and authorization boundaries
+    ↓
+Design minimum architecture
+    ↓
+Implement required infrastructure
+    ↓
+Deploy agent services
+    ↓
+Integrate remote messaging
+    ↓
+Validate authorized task execution
+```
+
+No implementation work should bypass the architecture and security definition stage.
+
+---
+
+# Active ADRs
+
+- ADR-0001.
+- ADR-0002.
+
+Existing ADRs must be reviewed before assuming that new architectural decisions are required.
+
+New ADRs should be created only when a significant decision has been defined.
+
+---
+
+# Repository
 
 Platform:
 
 GitHub
+
+Repository:
+
+bponti/experimental-lab
 
 Default Branch:
 
@@ -113,85 +167,85 @@ Operational
 
 Working Tree:
 
-(To be updated at the end of each session.)
+Must be checked against the local repository at the beginning of an implementation session.
 
 ---
 
-## Blockers
+# Current Synchronization State
 
-None.
-
----
-
-## Session Notes
-
-Today's achievements:
-
-- Phase 0 officially closed.
-- Milestone 1 officially completed.
-- Working methodology refined.
-- Roadmap and Project State responsibilities clarified.
-- Information confidence model introduced.
-- Session synchronization workflow established.
-
-Next session will begin by reviewing this document and the Roadmap before any implementation work starts.
-
-============================================================================
-
-# Working Agreement
-
-This section defines how work sessions are conducted during the AI Local Lab project.
-
----
-
-## Session Start Procedure
-
-At the beginning of every work session:
-
-1. Review PROJECT_STATE.md.
-2. Review the Roadmap if milestone planning or project direction is involved.
-3. Confirm the current milestone.
-4. Confirm the current objective.
-5. Identify the next planned task.
-6. Declare the information source (State A, B or C).
-
-No implementation work begins until the current project state has been confirmed.
-
----
-
-## Session End Procedure
-
-Before ending a work session:
-
-- Update PROJECT_STATE.md.
-- Update the Roadmap if milestone status has changed.
-- Update ADRs if architectural decisions were made.
-- Commit completed work.
-- Define the starting point for the next session.
-
----
-
-## Information Source Declaration
-
-Every work session begins by declaring the source of the information being used.
-
-### State A — Documentation
-
-Source:
-
-- PROJECT_STATE.md
-- Roadmap
-- ADRs
+State A — Documentation
 
 Confidence:
 
 Very High
 
-Use when project documentation is available and has been consulted.
+Source:
+
+- Current Project State.
+- Current Roadmap.
+- Current Project Overview.
+- Relevant ADRs.
+- Current repository contents.
+
+Historical handoff material provides continuity but does not override current repository documentation.
 
 ---
 
-### State B — Active Conversation
+# Blockers
+
+None currently identified.
+
+The main pending architectural work is intentional: the minimum MVP architecture and its security boundary must be defined before infrastructure implementation.
+
+---
+
+# Session Start Procedure
+
+At the beginning of every work session:
+
+1. Review `docs/project-state.md`.
+2. Review `docs/Roadmap.md` when planning or project direction is involved.
+3. Review relevant ADRs when an architectural decision is involved.
+4. Inspect the repository when documentation conflicts with historical context.
+5. Confirm the current milestone.
+6. Confirm the current objective.
+7. Identify the next planned task.
+8. Declare the information source state.
+
+No implementation work begins until the current project state has been confirmed.
+
+---
+
+# Session End Procedure
+
+Before ending a work session:
+
+1. Update `docs/project-state.md`.
+2. Update `docs/Roadmap.md` if milestone status or planning changed.
+3. Update ADRs if architectural decisions were made.
+4. Commit completed work.
+5. Define the starting point for the next session.
+
+---
+
+# Information Confidence Model
+
+## State A — Documentation
+
+Source:
+
+- `docs/project-state.md`
+- `docs/Roadmap.md`
+- ADRs
+- Other relevant repository documentation
+
+Confidence:
+
+Very High
+
+Use when current project documentation has been reviewed.
+
+## State B — Active Conversation
 
 Source:
 
@@ -203,26 +257,31 @@ High
 
 Use when the required information exists entirely within the active conversation.
 
----
-
-### State C — Reconstruction
+## State C — Reconstruction
 
 Source:
 
-Reconstructed from partial context or memory.
+Partial context or reconstructed memory.
 
 Confidence:
 
 Medium
 
-Use when project documentation has not been consulted or when information must be reconstructed from incomplete context.
-
-Architectural, planning and roadmap decisions should always be verified against the documentation before proceeding.
+Important planning, milestone and architectural conclusions must be verified against current repository documentation before implementation.
 
 ---
 
-## Documentation Rule
+# Documentation Rule
 
-When discussing milestones, deliverables, roadmap planning or project direction, the Roadmap must be consulted before conclusions are drawn.
+The repository documentation is the primary source of truth for the project.
 
-PROJECT_STATE.md reflects the current operational state of the project, while the Roadmap defines its planned evolution.
+When discussing milestones, deliverables, roadmap planning or project direction:
+
+- `docs/project-state.md` defines the current operational state.
+- `docs/Roadmap.md` defines the planned evolution.
+- ADRs document significant architectural decisions.
+- The active conversation provides short-term execution context.
+- Historical handoff material provides continuity.
+- Reconstructed memory is the lowest-confidence source.
+
+If documentation conflicts with historical context, inspect the current repository and follow the documented project state.
