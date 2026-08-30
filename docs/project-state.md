@@ -3,285 +3,329 @@
 ## Project Information
 
 Project:
-
 Experimental Lab
 
 Status:
-
 🟢 Active
 
-Last Updated:
-
-2026-08-26
-
----
-
-# Current Progress
-
-Last Completed Milestone:
-
-✅ Milestone 1 — Foundation
-
 Current Milestone:
-
 🟡 Milestone 2 — MVP Architecture and Security Boundary
 
-Status:
-
-In Progress
-
----
-
-# Last Completed
-
-Milestone:
-
-Milestone 1 — Foundation
-
-Last Completed Deliverable:
-
-Phase 0 — Environment Audit
-
-Completion Status:
-
-Completed
-
-Deliverables Completed:
-
-- Git repository initialized.
-- Documentation standards established.
-- README completed.
-- Project Overview established.
-- ADR-0001 approved.
-- ADR-0002 approved.
-- Phase 0 Environment Audit completed.
-- Documentation reviewed.
-- Repository published.
-- Milestone 1 exit criteria satisfied.
-
-Historical commit information must be revalidated against the current repository when needed.
+Previous Milestone:
+✅ Milestone 1 — Foundation
 
 ---
 
 # Current Objective
 
-Define and validate the minimum architecture required to implement the remotely accessible local AI agent MVP.
+Define and validate the minimum architecture required to implement the remotely accessible local AI agent MVP before infrastructure implementation begins.
 
-Before Docker infrastructure implementation begins, the project must identify the actual components, communication paths, execution boundaries and authorization requirements that the MVP requires.
+The MVP is:
 
-Infrastructure must follow requirements rather than assumptions about future services.
-
----
-
-# Current Tasks
-
-- [ ] Confirm the current MVP interaction flow.
-- [ ] Map the minimum required MVP components.
-- [ ] Evaluate and define the first AI agent runtime requirements.
-- [ ] Determine how the messaging platform communicates with the local agent.
-- [ ] Define the authorized workspace boundary.
-- [ ] Define workspace read and write permissions.
-- [ ] Define the local command execution model.
-- [ ] Define the distinction between normal and privileged operations.
-- [ ] Define the privileged-operation authorization policy.
-- [ ] Define the Docker socket access policy.
-- [ ] Define host mount requirements.
-- [ ] Define secret-handling requirements.
-- [ ] Define persistent-data requirements.
-- [ ] Define actual networking and communication requirements.
-- [ ] Define the minimum service boundaries.
-- [ ] Review existing ADRs for alignment with the updated architecture.
-- [ ] Create or update ADRs for new architectural decisions where required.
-- [ ] Prepare the minimum Docker implementation plan.
+- reactive;
+- single-user;
+- controlled through Telegram;
+- based on Claw Code as the Agent Runtime;
+- bounded by an authorized workspace;
+- capability-aware;
+- deny-by-default;
+- able to manage authorized Docker workloads;
+- able to perform a limited set of system package update operations.
 
 ---
 
-# Immediate Next Deliverable
+# Decisions Already Defined
 
-Milestone 2 — MVP Architecture and Security Boundary
-
-Minimum Architecture Definition
-
-Expected outcome:
-
-A documented answer to what the MVP actually requires before Docker services, networks, volumes, ports or privileged access are implemented.
-
----
-
-# Current Architectural Principle
-
-The project follows this execution order:
+## Interaction
 
 ```text
-Define MVP
-    ↓
-Identify required components
-    ↓
-Define communication paths
-    ↓
-Define security and authorization boundaries
-    ↓
-Design minimum architecture
-    ↓
-Implement required infrastructure
-    ↓
-Deploy agent services
-    ↓
-Integrate remote messaging
-    ↓
-Validate authorized task execution
+User
+  ↓
+Telegram
+  ↓
+Claw Code Agent Runtime
+  ↓
+Capabilities
+  ↓
+Workspace / Git / Docker / Limited System Updates
+  ↓
+Result
+  ↓
+Telegram
+  ↓
+User
 ```
 
-No implementation work should bypass the architecture and security definition stage.
+The agent is reactive and does not initiate autonomous tasks.
+
+The agent may ask follow-up questions before executing a task.
+
+## Identity
+
+The MVP is single-user.
+
+The authorized Telegram user/chat identity is used for authorization.
+
+OAuth is not required for the initial MVP.
+
+Local Wi-Fi is not considered an authentication mechanism.
+
+The preferred Telegram communication model uses outbound communication from the local environment and avoids publicly exposing the agent.
+
+## Workspace
+
+The workspace is the primary filesystem boundary.
+
+The agent may operate inside the authorized workspace.
+
+Arbitrary host filesystem access is denied.
+
+## Capabilities
+
+The system follows a deny-by-default model.
+
+If an operation is not explicitly available as an authorized capability, it must not execute.
+
+Capabilities should preferably be exposed through structured tools rather than arbitrary shell strings.
+
+## Capability Escalation
+
+When the agent needs an unavailable capability, it must request authorization rather than bypassing the policy.
+
+The request must explain:
+
+- required capability;
+- resource;
+- reason;
+- objective;
+- risk;
+- available alternatives.
+
+The agent cannot grant capabilities to itself.
+
+The initial approval scope should be as narrow as practical, preferably one operation.
+
+## Docker
+
+Docker is an MVP capability.
+
+The agent may manage Docker workloads associated with the authorized workspace.
+
+The following are denied:
+
+```text
+Host filesystem mounts
+--privileged
+--pid=host
+--network=host
+--device
+Arbitrary host bind mounts
+Arbitrary Linux capabilities
+```
+
+The workspace may be mounted into workloads when explicitly authorized.
+
+## Git
+
+Git is required for the development and recovery workflow:
+
+```text
+Investigate
+  ↓
+Compare versions
+  ↓
+Modify
+  ↓
+Test
+  ↓
+Commit
+  ↓
+Synchronize repository
+```
+
+Initial Git capabilities include read, modification and synchronization operations as defined in the Milestone 2 document.
+
+Remote publishing (`push`) requires an explicit decision before becoming a normal capability.
+
+## System Updates
+
+Initial system capabilities are limited to:
+
+```text
+apt list --upgradable
+apt update
+apt upgrade
+```
+
+General system administration is outside the initial MVP.
 
 ---
 
-# Active ADRs
+# Claw Code Baseline
 
-- ADR-0001.
-- ADR-0002.
+Claw Code is the Agent Runtime.
 
-Existing ADRs must be reviewed before assuming that new architectural decisions are required.
+The project will standardize against the current `main` branch of:
 
-New ADRs should be created only when a significant decision has been defined.
+`ultraworkers/claw-code`
 
----
+The exact version and commit used for implementation must be recorded.
 
-# Repository
+Before implementation:
 
-Platform:
-
-GitHub
-
-Repository:
-
-bponti/experimental-lab
-
-Default Branch:
-
-main
-
-Repository Status:
-
-Operational
-
-Working Tree:
-
-Must be checked against the local repository at the beginning of an implementation session.
+1. Build the current baseline.
+2. Run `claw doctor`.
+3. Run `claw version`.
+4. Inspect MCP configuration and registration.
+5. Validate the permission system.
+6. Validate `allowedTools`.
+7. Validate `allow`, `deny` and `ask`.
+8. Validate workspace restrictions.
+9. Validate MCP discovery and invocation.
 
 ---
 
-# Current Synchronization State
+# MCP Direction
 
-State A — Documentation
+MCP is the preferred mechanism for exposing capabilities that Claw does not already provide adequately.
 
-Confidence:
+The intended architecture is:
 
-Very High
+```text
+Telegram
+    ↓
+Telegram Adapter
+    ↓
+Claw Code
+    ↓
+MCP
+    ↓
+Experimental Lab Capability Server
+    ├── Docker
+    └── System
+```
 
-Source:
+MCP provides the structured tool interface.
 
-- Current Project State.
-- Current Roadmap.
-- Current Project Overview.
-- Relevant ADRs.
-- Current repository contents.
+The capability server must validate requests before execution.
 
-Historical handoff material provides continuity but does not override current repository documentation.
+Schema validation alone is not considered sufficient security.
 
----
+The first custom server is expected to be:
 
-# Blockers
-
-None currently identified.
-
-The main pending architectural work is intentional: the minimum MVP architecture and its security boundary must be defined before infrastructure implementation.
-
----
-
-# Session Start Procedure
-
-At the beginning of every work session:
-
-1. Review `docs/project-state.md`.
-2. Review `docs/Roadmap.md` when planning or project direction is involved.
-3. Review relevant ADRs when an architectural decision is involved.
-4. Inspect the repository when documentation conflicts with historical context.
-5. Confirm the current milestone.
-6. Confirm the current objective.
-7. Identify the next planned task.
-8. Declare the information source state.
-
-No implementation work begins until the current project state has been confirmed.
+`experimental-lab-docker-mcp`
 
 ---
 
-# Session End Procedure
+# Current Milestone 2 Tasks
 
-Before ending a work session:
+- [ ] MVP Component Map.
+- [ ] Identify and record the exact Claw Code version and commit.
+- [ ] Build and validate Claw.
+- [ ] Run `claw doctor`.
+- [ ] Run `claw version`.
+- [ ] Inspect Claw MCP configuration and registration.
+- [ ] Validate Claw permission behavior.
+- [ ] Validate `allowedTools`.
+- [ ] Validate `allow`, `deny` and `ask`.
+- [ ] Validate workspace restrictions.
+- [ ] Perform minimal MCP integration spike.
+- [ ] Map Claw native capabilities against MVP capabilities.
+- [ ] Define Docker capability schemas and parameter restrictions.
+- [ ] Define Git capability policy.
+- [ ] Define system-update capability policy.
+- [ ] Define capability escalation flow.
+- [ ] Design `experimental-lab-docker-mcp`.
+- [ ] Define Telegram adapter.
+- [ ] Define secret handling.
+- [ ] Define persistence requirements.
+- [ ] Define networking requirements.
+- [ ] Review existing ADRs and create/update ADRs when required.
+- [ ] Produce the minimum implementation architecture for Milestone 3.
+
+---
+
+# Immediate Next Step
+
+The next technical task is:
+
+## Claw + MCP Integration Spike
+
+Do not build the complete Docker MCP server yet.
+
+First prove:
+
+```text
+Claw
+  ↓
+MCP Server
+  ↓
+Test Tool
+  ↓
+Result
+```
+
+Then verify:
+
+- tool registration;
+- tool discovery;
+- tool schema;
+- `allowedTools`;
+- permission behavior;
+- denial behavior;
+- invocation from the agent.
+
+Only after this is validated should the Docker MCP capability server be implemented.
+
+---
+
+# Milestone 2 Definition of Done
+
+Milestone 2 is complete when:
+
+1. MVP interaction flow is documented.
+2. Claw baseline is reproducible.
+3. Claw MCP integration has been demonstrated.
+4. Claw tools and permission controls have been mapped.
+5. MVP capabilities are explicitly defined.
+6. Unlisted capabilities are denied by default.
+7. Docker operations are exposed through structured capabilities.
+8. Arbitrary host filesystem access is denied.
+9. Privileged Docker configuration is denied.
+10. Capability escalation requires explicit user authorization.
+11. Telegram identity authorization is defined.
+12. Secrets, persistence and networking requirements are documented.
+13. Minimum implementation architecture is documented.
+14. Milestone 3 can begin without unresolved architectural assumptions.
+
+---
+
+# Session Procedure
+
+At the beginning of each session:
+
+1. Read `docs/project-state.md`.
+2. Read `docs/Roadmap.md` when planning is involved.
+3. Read relevant ADRs for architectural decisions.
+4. Inspect the repository when current state is uncertain.
+5. Confirm the current milestone and objective.
+6. Continue from the next unfinished task.
+
+At the end of each session:
 
 1. Update `docs/project-state.md`.
-2. Update `docs/Roadmap.md` if milestone status or planning changed.
-3. Update ADRs if architectural decisions were made.
+2. Update `docs/Roadmap.md` when planning or status changes.
+3. Update ADRs when architectural decisions are made.
 4. Commit completed work.
-5. Define the starting point for the next session.
+5. Record the next starting point.
 
 ---
 
-# Information Confidence Model
+# Source-of-Truth Hierarchy
 
-## State A — Documentation
+1. Current repository documentation.
+2. Current repository contents.
+3. Current active conversation.
+4. Historical handoff/context.
 
-Source:
-
-- `docs/project-state.md`
-- `docs/Roadmap.md`
-- ADRs
-- Other relevant repository documentation
-
-Confidence:
-
-Very High
-
-Use when current project documentation has been reviewed.
-
-## State B — Active Conversation
-
-Source:
-
-Current conversation.
-
-Confidence:
-
-High
-
-Use when the required information exists entirely within the active conversation.
-
-## State C — Reconstruction
-
-Source:
-
-Partial context or reconstructed memory.
-
-Confidence:
-
-Medium
-
-Important planning, milestone and architectural conclusions must be verified against current repository documentation before implementation.
-
----
-
-# Documentation Rule
-
-The repository documentation is the primary source of truth for the project.
-
-When discussing milestones, deliverables, roadmap planning or project direction:
-
-- `docs/project-state.md` defines the current operational state.
-- `docs/Roadmap.md` defines the planned evolution.
-- ADRs document significant architectural decisions.
-- The active conversation provides short-term execution context.
-- Historical handoff material provides continuity.
-- Reconstructed memory is the lowest-confidence source.
-
-If documentation conflicts with historical context, inspect the current repository and follow the documented project state.
+Historical material provides continuity but does not override the current repository state.
